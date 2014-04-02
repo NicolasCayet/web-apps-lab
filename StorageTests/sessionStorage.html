@@ -1,0 +1,48 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>sessionStorage</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+    </head>
+    <body>
+        <div>
+            <h3>sessionStorage</h3>
+            <label>
+                <input id="mycheckbox" type="checkbox">
+                I want insurance on this trip.
+            </label><br/>
+            <a href="sessionStorage2.html">Go to sessionStorage2</a>
+        </div>
+        <script type="text/javascript">
+            if (typeof(Storage) !== "undefined")
+            {
+                // Yes! localStorage and sessionStorage support!
+                document.getElementById("mycheckbox").checked = sessionStorage.insurance==='true';
+                
+                var checkInsurance = function(event){
+                    if(this.checked){
+                        console.log("insurance checked! ");
+                    }else{
+                        console.log("insurance unchecked! ");
+                    }
+                    
+                    sessionStorage.insurance = this.checked ? 'true' : '';
+                };
+                document.getElementById("mycheckbox").addEventListener('change',checkInsurance,false);
+            }
+            else
+            {
+                // Sorry! No web storage support..
+                alert("Your browser is outdated.");
+            }
+            
+            //Setting cookies for testing if it is passed into the request
+            document.cookie="isitsendwithrequest=yes";
+        </script>
+    </body>
+</html>

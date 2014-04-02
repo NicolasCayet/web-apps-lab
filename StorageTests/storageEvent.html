@@ -1,0 +1,53 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>storageEvent</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <div>
+            <h3>storageEvent</h3>
+            <p>
+                You have viewed the page "localStorage.html" 
+                <span id="count">an untold number of</span>
+                time(s).
+                This counter is updated automatically when localStorage.pageLoadCount is changed.<br/><br/>
+                <button id="changeTest1">Click to change localStorage's key "test1"</button><br/>
+                This page is listening for 'Storage Event' and log into the console every informations about a given event.
+            </p>
+            <script>
+                if (typeof(Storage) !== "undefined")
+                {
+                    var pageLoadCountEventHandler = function(event){
+                        if(event.key === "pageLoadCount"){
+                            document.getElementById("count").textContent = event.newValue;
+                        }
+                    };
+                    window.addEventListener('storage', pageLoadCountEventHandler, true);
+                    
+                    
+                    document.getElementById("changeTest1").addEventListener("click",function(event){
+                        var d = new Date();
+                        var n = d.getTime();
+                        localStorage.setItem("test1","newValue!"+n);
+                    },false);
+                    
+                    
+                    var anyStorageEventHandler = function(event){
+                        console.log("The key "+event.key+" has changed its value into the "+event.storageArea+" for "+event.url);
+                        console.log("oldValue : "+event.oldValue+" newValue : "+event.newValue);
+                        console.log("This message is displayed because an event 'storage' has been fired!");
+                    };
+                    window.addEventListener('storage', anyStorageEventHandler, true);
+                    
+                    
+                }
+            </script>
+
+        </div>
+    </body>
+</html>
